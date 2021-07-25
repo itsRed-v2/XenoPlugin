@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XenoPlugin" default="makejar" basedir=".">
+    <target name="makejar" description="Create a jar for the project">
+        <mkdir dir="/Users/domicile/Documents/Paul1/XenoPlugin/spigot"></mkdir>
+        <jar destfile="/Users/domicile/Documents/Paul1/XenoPlugin/spigot/plugins/${ant.project.name}.jar">
+            <fileset dir="bin"></fileset>
+            <fileset file="plugin.yml"></fileset>
+        </jar>
+    </target>
+</project>

@@ -1,0 +1,33 @@
+main: fr.xenocraft.Main
+name: XenoPlugin
+version: 1.0
+author: itsRed_v2 
+description: A test plugin
+api-version: 1.16
+
+commands:
+   warp:
+      usage: /warp <location>
+      description: Teleports you to the specified zone
+   
+   test:
+      usage: /test
+      
+   openmaterializer:
+      usage: /openmaterializer <materializer>
+      description: Opens the Virtual Storage Manager for this materializer
+
+   map:
+      usage: /map <map name>
+      description: Gives a map with a custom image on it
+      
+   citem:
+      usage: /citem <item>
+      description: Command used to get unobtainable custom items
+   
+   msg:
+      usage: /msg <player> <message>
+      aliases: [tell, w]
+      
+   teleporter:
+      usage: /teleporter <action> ...... bla bla bla

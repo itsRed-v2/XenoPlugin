@@ -1,0 +1,8 @@
+join_msg: "%player% §anous a rejoint! :D"
+leave_msg: "%player% §cest parti! :'("
+
+chat_format: "%player%§7 >§r %message%"
+
+materializers: 
+
+teleporters: 
