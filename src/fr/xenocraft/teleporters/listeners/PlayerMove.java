@@ -40,7 +40,7 @@ public class PlayerMove implements Listener {
 				NamespacedKey dataKey = new NamespacedKey(plugin, "teleporter");
 
 				if (data.get(dataKey, PersistentDataType.STRING).equals("null")) enterTp(p, tp);
-				if (data.get(dataKey, PersistentDataType.STRING).equals("immune")) outTp(p, tp); // METHOD TO RENAME
+				if (data.get(dataKey, PersistentDataType.STRING).equals("immune")) outTp(p, tp);
 
 				return;
 			}
@@ -142,7 +142,7 @@ public class PlayerMove implements Listener {
 		}.runTaskTimer(plugin, 0, 3);
 	}
 
-	private void outTp(Player p, Teleporter tp) {
+	private void outTp(Player p, Teleporter tp) { // Method to rename?
 
 		new BukkitRunnable() {
 			@Override

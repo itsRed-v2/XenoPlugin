@@ -90,7 +90,7 @@ public class Main extends JavaPlugin {
 		loadWorlds();
 		
 		// Activating teleporters
-		new InitializeTp(this).Init();
+		new InitializeTp(this).init();
 
 		// Setting PermissionAttachments for connectedPlayers
 		new Permissions(this).setAllAttachments();

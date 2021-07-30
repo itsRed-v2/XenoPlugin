@@ -7,11 +7,15 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
 import fr.xenocraft.Main;
 import fr.xenocraft.teleporters.services.InitializeTp;
@@ -46,6 +50,10 @@ public class TeleporterCmd implements CommandExecutor {
 				}
 			}
 
+			if (args[0].equals("goto")) {
+				tpTo(sender, args);
+			}
+
 			if (args[0].equals("info")) {
 				info(sender, args);
 			}
@@ -65,6 +73,47 @@ public class TeleporterCmd implements CommandExecutor {
 		}
 		
 		return true;
+	}
+
+	private void tpTo(CommandSender sender, String[] args) {
+
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("§cOnly players may do this");
+			return;
+		}
+		if (args.length == 1) {
+			sender.sendMessage("§cCorrect syntax: /teleporter goto <id>");
+			return;
+		}
+		if (args.length > 2) {
+			sender.sendMessage("§cThe id can only be one word");
+			return;
+		}
+
+		Teleporter tp = InitializeTp.teleportsMap.get(args[1]);
+
+		if (tp == null) {
+			sender.sendMessage("§cCan't find a teleporter with the id \"" + args[1] + "\"");
+			return;
+		}
+
+		Player p = (Player) sender;
+
+		p.sendMessage("§7[§6Space-time network§7]§r Teleporting to " + tp.displayName + "§r (id: §e" + tp.id + "§r)");
+
+		p.getPersistentDataContainer().set(new NamespacedKey(plugin, "teleporter"), PersistentDataType.STRING, "immune");
+
+		if (tp.forceRotation) {
+			p.teleport(tp.bottomLoc);
+		} else {
+			Location destination = tp.bottomLoc.clone();
+			destination.setYaw(p.getLocation().getYaw());
+			destination.setPitch(p.getLocation().getPitch());
+			p.teleport(destination);
+		}
+
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+		p.getWorld().spawnParticle(Particle.REVERSE_PORTAL, p.getLocation().add(0, 1, 0), 50, 0, .5, 0, 1);
 	}
 
 	private void info(CommandSender sender, String[] args) {
@@ -105,6 +154,7 @@ public class TeleporterCmd implements CommandExecutor {
 
 			return;
 		}
+
 		if (args.length > 2) {
 			sender.sendMessage("§cThe id can only be one word");
 			return;

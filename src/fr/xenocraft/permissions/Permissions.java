@@ -23,7 +23,6 @@ public class Permissions {
 		for (UUID uuid : permAttachments.keySet()) {
 
 			Player p = Bukkit.getPlayer(uuid);
-			System.out.println(p);
 
 			PermissionAttachment attachment = Permissions.permAttachments.remove(uuid);
 			p.removeAttachment(attachment);

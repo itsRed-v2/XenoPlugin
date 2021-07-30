@@ -19,7 +19,7 @@ public class Teleporter {
 	public String destinationId;
 	public double loop = Math.random() * Math.PI * 2;
 
-	public boolean readConfig(ConfigurationSection section) {
+	public boolean loadFromConfig(ConfigurationSection section) {
 
 		id = section.getName();
 		bottomLoc = section.getLocation("location");
@@ -28,10 +28,6 @@ public class Teleporter {
 		color = section.getColor("color");
 		destinationId = section.getString("destination");
 		displayName = section.getString("displayName");
-
-		if (destinationId == null) {
-			System.out.println("No destination has been provided for " + id);
-		}
 
 		return true;
 	}

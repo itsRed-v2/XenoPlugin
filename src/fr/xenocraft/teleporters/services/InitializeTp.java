@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
 import fr.xenocraft.Main;
@@ -17,28 +18,28 @@ public class InitializeTp {
 		this.plugin = plugin;
 	}
 
-	public void Init() {
+	public void init() {
 
 		ConfigurationSection tpSection = plugin.getCustomConfig().getConfigurationSection("teleporters");
 		if (tpSection == null) return;
 
 		Set<String> keys = tpSection.getKeys(false);
-		
-		System.out.println("Loading teleporters");
+
+		Bukkit.getLogger().info("Loading teleporters");
 
 		for (String key : keys) {
 
-			System.out.println("Initializing " + key);
+			Bukkit.getLogger().info("Initializing " + key);
 
 			ConfigurationSection entry = tpSection.getConfigurationSection(key);
-			
+
 			Teleporter tp = new Teleporter();
-			if (tp.readConfig(entry)) {
+			if (tp.loadFromConfig(entry)) {
 				teleportsMap.put(key, tp);
 			}
-			
+
 		}
-		
+
 		new AnimationRenderer().runTaskTimer(plugin, 120, 1);
 	}
 
@@ -51,16 +52,16 @@ public class InitializeTp {
 
 		Set<String> keys = tpSection.getKeys(false);
 
-		System.out.println("Loading teleporters");
+		Bukkit.getLogger().info("(Re)Loading teleporters");
 
 		for (String key : keys) {
 
-			System.out.println("Initializing " + key);
+			Bukkit.getLogger().info("Initializing " + key);
 
 			ConfigurationSection entry = tpSection.getConfigurationSection(key);
 
 			Teleporter tp = new Teleporter();
-			if (tp.readConfig(entry)) {
+			if (tp.loadFromConfig(entry)) {
 				teleportsMap.put(key, tp);
 			}
 

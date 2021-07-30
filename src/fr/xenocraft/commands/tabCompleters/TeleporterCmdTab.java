@@ -33,11 +33,15 @@ public class TeleporterCmdTab implements TabCompleter {
 			list.add("modify");
 			list.add("create");
 			list.add("remove");
+			if (sender instanceof Player) {
+				list.add("goto");
+			}
 		}
 
 		if (args.length == 2) {
 
-			if (args[0].equals("info") || args[0].equals("remove") || args[0].equals("modify")) {
+			if (args[0].equals("info") || args[0].equals("remove") || args[0].equals("modify")
+					|| args[0].equals("goto")) {
 				list = new ArrayList<String>(InitializeTp.teleportsMap.keySet());
 			}
 
