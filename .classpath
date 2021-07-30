@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/domicile/Documents/Paul1/XenoPlugin/buildTools/Spigot/Spigot-API/target/spigot-api-1.17-R0.1-SNAPSHOT-shaded.jar" sourcepath="/Users/domicile/Documents/Paul1/XenoPlugin/buildTools/Spigot/Spigot-API/src"/>
+	<classpathentry kind="lib" path="/Users/domicile/Documents/Paul1/XenoPlugin/source-apis/spigot-api-1.17-R0.1-SNAPSHOT-shaded.jar" sourcepath="/Users/domicile/Documents/Paul1/XenoPlugin/buildTools/Spigot/Spigot-API"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

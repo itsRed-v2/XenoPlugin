@@ -75,24 +75,34 @@ public class TeleporterCmd implements CommandExecutor {
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
 
-				double minDistance = 5;
+				double minDistance = 100;
+				Teleporter nearestTp = null;
 
 				for (Teleporter tp : InitializeTp.teleportsMap.values()) {
 					try {
-
 						double distance = p.getLocation().distanceSquared(tp.bottomLoc);
-						System.out.println(distance);
-//						if (distance < minDistance) {
-//							
-//						}
+
+						if (distance < minDistance) {
+							minDistance = distance;
+							nearestTp = tp;
+						}
 					} catch (IllegalArgumentException e) {
 						continue;
 					}
 				}
+				if (nearestTp != null) {
+					p.sendMessage("Information about the nearest teleporter:");
+					displayInfo(sender, nearestTp);
+				} else {
+					p.sendMessage("§cCan't find a teleporter within a 10 block range");
+					p.sendMessage("§cSearching info about a specific teleporter? Use:");
+					p.sendMessage("§c/teleporter info <id>");
+				}
 
+			} else {
+				sender.sendMessage("§cCorrect syntax: /teleporter info <id>");
 			}
 
-			sender.sendMessage("§cCorrect syntax: /teleporter info <id>");
 			return;
 		}
 		if (args.length > 2) {
@@ -103,12 +113,15 @@ public class TeleporterCmd implements CommandExecutor {
 		Teleporter tp = InitializeTp.teleportsMap.get(args[1]);
 
 		if (tp == null) {
-			sender.sendMessage("§cCan't find any teleporter with the id \"" + args[1] + "\"");
+			sender.sendMessage("§cCan't find a teleporter with the id \"" + args[1] + "\"");
 			return;
 		}
 
 		sender.sendMessage("Information about §e" + tp.id + "§r:");
+		displayInfo(sender, tp);
+	}
 
+	private void displayInfo(CommandSender sender, Teleporter tp) {
 		TextComponent message = new TextComponent("§9Id: §e" + tp.id);
 		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§eYou can't edit the id!")));
 		sender.spigot().sendMessage(message);
