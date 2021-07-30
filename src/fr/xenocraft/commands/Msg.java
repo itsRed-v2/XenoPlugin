@@ -41,8 +41,8 @@ public class Msg implements CommandExecutor {
 
 		String coloredMessage = ChatColor.translateAlternateColorCodes('&', message);
 
-		p1.sendMessage("§6[§rYOU §7---> §r" + p2.getDisplayName() + "§6]§r " + coloredMessage);
-		p2.sendMessage("§6[§r" + p2.getDisplayName() + "§7 ---> §rYOU§6]§r " + coloredMessage);
+		p1.sendMessage("§7[§rYOU §7--> §r" + p2.getDisplayName() + "§7]§r " + coloredMessage);
+		p2.sendMessage("§7[§r" + p2.getDisplayName() + "§7 --> §rYOU§7]§r " + coloredMessage);
 
 		return true;
 	}
