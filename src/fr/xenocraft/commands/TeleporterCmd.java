@@ -173,49 +173,43 @@ public class TeleporterCmd implements CommandExecutor {
 
 	private void displayInfo(CommandSender sender, Teleporter tp) {
 		TextComponent message = new TextComponent("§9Id: §e" + tp.id);
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§eYou can't edit the id!")));
+		setHoverText(message, "§eYou can't edit the id!");
 		sender.spigot().sendMessage(message);
 
 		message = new TextComponent("§9World: §r" + tp.getWorld().getName());
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the world")));
-		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
-				"/teleporter modify " + tp.id + " world " + tp.getWorld().getName()));
+		setHoverText(message, "Click to edit the world");
+		setClickCommand(message, "/teleporter modify " + tp.id + " world " + tp.getWorld().getName());
 		sender.spigot().sendMessage(message);
 
 		message = new TextComponent("§9Position: §r" + tp.bottomLoc.getBlockX() + " " + tp.bottomLoc.getBlockY() + " "
 				+ tp.bottomLoc.getBlockZ());
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the coordinates")));
-		message.setClickEvent(
-				new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/teleporter modify " + tp.id + " position "
-						+ tp.bottomLoc.getBlockX() + " " + tp.bottomLoc.getBlockY() + " " + tp.bottomLoc.getBlockZ()));
+		setHoverText(message, "Click to edit the coordinates");
+		setClickCommand(message, "/teleporter modify " + tp.id + " position " + tp.bottomLoc.getBlockX() + " "
+				+ tp.bottomLoc.getBlockY() + " " + tp.bottomLoc.getBlockZ());
 		sender.spigot().sendMessage(message);
 
 		message = new TextComponent(
 				"§9Rotation: §rYaw: " + tp.bottomLoc.getYaw() + "  Pitch: " + tp.bottomLoc.getPitch());
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the rotation")));
-		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
-				"/teleporter modify " + tp.id + " rotation " + tp.bottomLoc.getYaw() + " " + tp.bottomLoc.getPitch()));
+		setHoverText(message, "Click to edit the rotation");
+		setClickCommand(message,
+				"/teleporter modify " + tp.id + " rotation " + tp.bottomLoc.getYaw() + " " + tp.bottomLoc.getPitch());
 		sender.spigot().sendMessage(message);
 
 		message = new TextComponent("§9ForceRotation: §r" + tp.forceRotation);
-		message.setHoverEvent(
-				new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the forceRotation parameter")));
-		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
-				"/teleporter modify " + tp.id + " forceRotation " + tp.forceRotation));
+		setHoverText(message, "Click to edit the forceRotation parameter");
+		setClickCommand(message, "/teleporter modify " + tp.id + " forceRotation " + tp.forceRotation);
 		sender.spigot().sendMessage(message);
-
 
 		message = new TextComponent(TextComponent.fromLegacyText("§9Color: §c" + tp.color.getRed() + " §a"
 				+ tp.color.getGreen() + " §9" + tp.color.getBlue() + "§7 ==> " + tp.getChatColor() + "||||||||"));
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the color")));
-		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/teleporter modify " + tp.id
-				+ " color " + tp.color.getRed() + " " + tp.color.getGreen() + " " + tp.color.getBlue()));
+		setHoverText(message, "Click to edit the color");
+		setClickCommand(message, "/teleporter modify " + tp.id + " color " + tp.color.getRed() + " "
+				+ tp.color.getGreen() + " " + tp.color.getBlue());
 		sender.spigot().sendMessage(message);
 		
 		message = new TextComponent("§9Display name: §r" + tp.displayName);
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the display name")));
-		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/teleporter modify " + tp.id
-				+ " displayName " + tp.displayName.replace('§', '&')));
+		setHoverText(message, "Click to edit the display name");
+		setClickCommand(message, "/teleporter modify " + tp.id + " displayName " + tp.displayName.replace('§', '&'));
 		sender.spigot().sendMessage(message);
 		
 		String destinationMsg;
@@ -228,9 +222,17 @@ public class TeleporterCmd implements CommandExecutor {
 			suggestCommand = "/teleporter modify " + tp.id + " destination " + tp.destinationId;
 		}
 		message = new TextComponent(destinationMsg);
-		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to edit the destination")));
-		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, suggestCommand));
+		setHoverText(message, "Click to edit the destination");
+		setClickCommand(message, suggestCommand);
 		sender.spigot().sendMessage(message);
+	}
+
+	private void setClickCommand(TextComponent message, String command) {
+		message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
+	}
+
+	private void setHoverText(TextComponent message, String text) {
+		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(text)));
 	}
 
 	private void createTp(CommandSender sender, String[] args) {
