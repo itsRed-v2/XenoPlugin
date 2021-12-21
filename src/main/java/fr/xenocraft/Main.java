@@ -75,16 +75,7 @@ public class Main extends JavaPlugin {
 		// Formater
 		new ChatFormater(this);
 		
-		// Commands & tab completers
-		getCommand("test").setExecutor(new Test(this));
-		getCommand("openmaterializer").setExecutor(new OpenMaterializer(this));
-		getCommand("warp").setExecutor(new Warp(this));
-		getCommand("warp").setTabCompleter(new WarpTab(this));
-		getCommand("map").setExecutor(new Map(this));
-		getCommand("citem").setExecutor(new Citem(this));
-		getCommand("msg").setExecutor(new Msg(this));
-		getCommand("teleporter").setExecutor(new TeleporterCmd(this));
-		getCommand("teleporter").setTabCompleter(new TeleporterCmdTab(this));
+		registerCommands();
 		
 		// Loading custom worlds
 		loadWorlds();
@@ -109,6 +100,20 @@ public class Main extends JavaPlugin {
 		Permissions.removeAllAttachments();
     }
 	
+	@SuppressWarnings("ConstantConditions")
+	private void registerCommands() {
+		// Commands & tab completers
+		getCommand("test").setExecutor(new Test(this));
+		getCommand("openmaterializer").setExecutor(new OpenMaterializer(this));
+		getCommand("warp").setExecutor(new Warp(this));
+		getCommand("warp").setTabCompleter(new WarpTab(this));
+		getCommand("map").setExecutor(new Map(this));
+		getCommand("citem").setExecutor(new Citem(this));
+		getCommand("msg").setExecutor(new Msg(this));
+		getCommand("teleporter").setExecutor(new TeleporterCmd(this));
+		getCommand("teleporter").setTabCompleter(new TeleporterCmdTab(this));
+	}
+
 	private void loadWorlds() {
 		ConfigurationSection config = this.getConfig();
 
@@ -139,7 +144,8 @@ public class Main extends JavaPlugin {
 		 
 	 	customConfigFile = new File(getDataFolder(), "custom.yml");
 	    if (!customConfigFile.exists()) {
-	        customConfigFile.getParentFile().mkdirs();
+			//noinspection ResultOfMethodCallIgnored
+			customConfigFile.getParentFile().mkdirs();
 	        saveResource("custom.yml", false);
 	    }
 	
